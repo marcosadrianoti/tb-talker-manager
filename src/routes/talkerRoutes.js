@@ -14,10 +14,9 @@ route.get('/', async (req, res) => {
 route.get('/:id', async (req, res) => {
   const talker = await utilsFile.getTalkerById(req.params.id);
   if (talker) {
-    res.status(200).json(talker);
-  } else {
-    res.status(404).json({ message: 'Pessoa palestrante não encontrada' });
+    return res.status(200).json(talker);
   }
+  return res.status(404).json({ message: 'Pessoa palestrante não encontrada' });
 });
 
 module.exports = route;
