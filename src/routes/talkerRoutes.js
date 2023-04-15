@@ -1,6 +1,8 @@
 const express = require('express');
+// const fs = require('fs/promises');
 const utilsFile = require('../utils/readWriteTalkerFile');
 const { isAuthorizationExist, isTokenValid } = require('../middleware/tokenValidation');
+const { hasIdOnFile } = require('../middleware/hasIdOnFile');
 const {
   isNameValid,
   isAgeValid,
@@ -45,6 +47,26 @@ route.post('/',
     await utilsFile.insertNewTalker(talkerWithId);
 
     return res.status(201).json(talkerWithId);
+});
+
+route.put('/:id',
+  isAuthorizationExist,
+  isTokenValid,
+  isNameValid,
+  isAgeValid,
+  isTalkValid,
+  isWatchedAtValid,
+  isRateValid,
+  hasIdOnFile,
+  async (req, res) => {
+    const id = Number(req.params.id);
+    const talkerBody = req.body;
+    await utilsFile.saveEditedTalker(id, talkerBody);
+    const talkerEdited = {
+      id,
+      ...talkerBody,
+    };
+    return res.status(200).json(talkerEdited);
 });
 
 module.exports = route;

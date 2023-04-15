@@ -33,9 +33,21 @@ const insertNewTalker = async (talker) => {
   }
 };
 
+const saveEditedTalker = async (id, talker) => {
+  const talkers = await readTalkerFile();
+  const talkersFilter = talkers.filter((talkerPerson) => talkerPerson.id !== id);
+  const talkerEdited = {
+    id,
+    ...talker,
+  };
+  talkersFilter.push(talkerEdited);
+  await fs.writeFile('src/talker.json', JSON.stringify(talkersFilter));
+};
+
 module.exports = {
   readTalkerFile,
   getTalkerById,
   getTalkerLastId,
   insertNewTalker,
+  saveEditedTalker,
 };
