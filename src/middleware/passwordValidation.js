@@ -11,7 +11,7 @@ const isPasswordValid = (req, res, next) => {
   const bodyLogin = req.body;
   const passwordTested = bodyLogin.password.length >= 6;
 
-  if (passwordTested === false) {
+  if (!passwordTested) {
     return res.status(400).json({ message: 'O "password" deve ter pelo menos 6 caracteres' });
   }
   next();
