@@ -1,5 +1,4 @@
 const express = require('express');
-// const fs = require('fs/promises');
 const utilsFile = require('../utils/readWriteTalkerFile');
 const { isAuthorizationExist, isTokenValid } = require('../middleware/tokenValidation');
 const { hasIdOnFile } = require('../middleware/hasIdOnFile');
@@ -12,6 +11,15 @@ const {
 } = require('../middleware/talkerValidation');
 
 const route = express.Router();
+
+route.get('/search',
+  isAuthorizationExist,
+  isTokenValid,
+  async (req, res) => {
+    const stringTerm = req.query.q;
+    const talker = await utilsFile.getTalkerByTerm(stringTerm);
+    return res.status(200).json(talker);
+});
 
 route.get('/', async (req, res) => {
   const talkers = await utilsFile.readTalkerFile();

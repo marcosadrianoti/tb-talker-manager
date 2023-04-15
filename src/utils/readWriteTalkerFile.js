@@ -17,6 +17,12 @@ const getTalkerById = async (id) => {
     return talker;
 };
 
+const getTalkerByTerm = async (term) => {
+  const talkers = await readTalkerFile();
+  const talker = talkers.filter((t) => t.name.includes(term));
+  return talker;
+};
+
 const getTalkerLastId = async () => {
   const arrTalkers = await readTalkerFile();
   return arrTalkers.length;
@@ -57,4 +63,5 @@ module.exports = {
   insertNewTalker,
   saveEditedTalker,
   deleteTalker,
+  getTalkerByTerm,
 };
