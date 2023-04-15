@@ -69,4 +69,13 @@ route.put('/:id',
     return res.status(200).json(talkerEdited);
 });
 
+route.delete('/:id',
+  isAuthorizationExist,
+  isTokenValid,
+  async (req, res) => {
+    const id = Number(req.params.id);
+    await utilsFile.deleteTalker(id);
+    return res.status(204).json();
+});
+
 module.exports = route;
