@@ -1,6 +1,13 @@
 const express = require('express');
 const utilsFile = require('../utils/readWriteTalkerFile');
-const { isAuthorizationExist, isTokenValid } = require('../middleware/talkerValidation');
+const { isAuthorizationExist, isTokenValid } = require('../middleware/tokenValidation');
+const {
+  isNameValid,
+  isAgeValid,
+  isTalkValid,
+  isWatchedAtValid,
+  isRateValid,
+} = require('../middleware/talkerValidation');
 
 const route = express.Router();
 
@@ -20,8 +27,24 @@ route.get('/:id', async (req, res) => {
   return res.status(404).json({ message: 'Pessoa palestrante não encontrada' });
 });
 
-route.post('/', isAuthorizationExist, isTokenValid, async (req, res) => {
-  return res.status(201).json({ message: 'Deu certo'});
+route.post('/',
+  isAuthorizationExist,
+  isTokenValid,
+  isNameValid,
+  isAgeValid,
+  isTalkValid,
+  isWatchedAtValid,
+  isRateValid,
+  async (req, res) => {
+    const talker = req.body;
+    const id = (await utilsFile.getTalkerLastId()) + 1;
+    const talkerWithId = {
+      id,
+      ...talker,
+    };
+    await utilsFile.insertNewTalker(talkerWithId);
+
+    return res.status(201).json(talkerWithId);
 });
 
 module.exports = route;

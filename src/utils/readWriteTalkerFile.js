@@ -17,7 +17,25 @@ const getTalkerById = async (id) => {
     return talker;
 };
 
+const getTalkerLastId = async () => {
+  const arrTalkers = await readTalkerFile();
+  return arrTalkers.length;
+};
+
+const insertNewTalker = async (talker) => {
+  try {
+    const arrTalkers = await readTalkerFile();
+    arrTalkers.push(talker);
+
+    return await fs.writeFile('src/talker.json', JSON.stringify(arrTalkers));
+  } catch (error) {
+    return null;
+  }
+};
+
 module.exports = {
   readTalkerFile,
   getTalkerById,
+  getTalkerLastId,
+  insertNewTalker,
 };
