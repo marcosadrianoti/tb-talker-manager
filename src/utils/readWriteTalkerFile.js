@@ -24,12 +24,20 @@ const getTalkerByTerm = async (term) => {
 };
 
 const getTalkerByRate = async (rate, filteredTalkers) => {
-  console.log(filteredTalkers);
   let talkers = await readTalkerFile();
   if (filteredTalkers.length !== 0) talkers = filteredTalkers;
 
   const filteredTalkersByRate = talkers.filter((t) => t.talk.rate === Number(rate));
   return filteredTalkersByRate;
+};
+
+const getTalkerByDate = async (date, filteredTalkers) => {
+  let filteredTalkersByDate = await readTalkerFile();
+  if (date !== '') {
+    const talkers = filteredTalkers.length !== 0 ? filteredTalkers : await readTalkerFile();
+    filteredTalkersByDate = talkers.filter((t) => t.talk.watchedAt === date);
+  }
+  return filteredTalkersByDate;
 };
 
 const getTalkerLastId = async () => {
@@ -74,4 +82,5 @@ module.exports = {
   deleteTalker,
   getTalkerByTerm,
   getTalkerByRate,
+  getTalkerByDate,
 };

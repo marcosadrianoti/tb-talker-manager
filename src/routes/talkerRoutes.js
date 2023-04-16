@@ -2,7 +2,7 @@ const express = require('express');
 const utilsFile = require('../utils/readWriteTalkerFile');
 const { isAuthorizationExist, isTokenValid } = require('../middleware/tokenValidation');
 const { hasIdOnFile } = require('../middleware/hasIdOnFile');
-const { seachByTerm, seachByRate } = require('../middleware/seach');
+const { seachByTerm, seachByRate, seachByDate } = require('../middleware/seach');
 const {
   isNameValid,
   isAgeValid,
@@ -18,6 +18,7 @@ route.get('/search',
   isTokenValid,
   seachByTerm,
   seachByRate,
+  seachByDate,
   async (req, res) => res.status(200)
       .json(req.filteredTalkers));
 
