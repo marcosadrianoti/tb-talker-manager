@@ -19,8 +19,17 @@ const getTalkerById = async (id) => {
 
 const getTalkerByTerm = async (term) => {
   const talkers = await readTalkerFile();
-  const talker = talkers.filter((t) => t.name.includes(term));
-  return talker;
+  const filteredTalkersByTerm = talkers.filter((t) => t.name.includes(term));
+  return filteredTalkersByTerm;
+};
+
+const getTalkerByRate = async (rate, filteredTalkers) => {
+  console.log(filteredTalkers);
+  let talkers = await readTalkerFile();
+  if (filteredTalkers.length !== 0) talkers = filteredTalkers;
+
+  const filteredTalkersByRate = talkers.filter((t) => t.talk.rate === Number(rate));
+  return filteredTalkersByRate;
 };
 
 const getTalkerLastId = async () => {
@@ -64,4 +73,5 @@ module.exports = {
   saveEditedTalker,
   deleteTalker,
   getTalkerByTerm,
+  getTalkerByRate,
 };

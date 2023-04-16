@@ -2,7 +2,7 @@ const express = require('express');
 const utilsFile = require('../utils/readWriteTalkerFile');
 const { isAuthorizationExist, isTokenValid } = require('../middleware/tokenValidation');
 const { hasIdOnFile } = require('../middleware/hasIdOnFile');
-const { seachByTerm } = require('../middleware/seach');
+const { seachByTerm, seachByRate } = require('../middleware/seach');
 const {
   isNameValid,
   isAgeValid,
@@ -17,12 +17,9 @@ route.get('/search',
   isAuthorizationExist,
   isTokenValid,
   seachByTerm,
-  async (req, res) => {
-    console.log(req.filteredTalkers);
-    // const stringTerm = req.query.q;
-    // const talker = await utilsFile.getTalkerByTerm(stringTerm);
-    return res.status(200).json(req.filteredTalkers);
-});
+  seachByRate,
+  async (req, res) => res.status(200)
+      .json(req.filteredTalkers));
 
 route.get('/', async (req, res) => {
   const talkers = await utilsFile.readTalkerFile();
