@@ -1,5 +1,6 @@
 const express = require('express');
 const utilsFile = require('../utils/readWriteTalkerFile');
+const talkerDb = require('../db/talkerDb');
 const { isAuthorizationExist, isTokenValid } = require('../middleware/tokenValidation');
 const { hasIdOnFile } = require('../middleware/hasIdOnFile');
 const { seachByTerm, seachByRate, seachByDate } = require('../middleware/seach');
@@ -13,6 +14,27 @@ const {
 } = require('../middleware/talkerValidation');
 
 const route = express.Router();
+
+route.get('/db',
+  async (_req, res) => {
+    try {
+      const [result] = await talkerDb.findAll();
+      const normalizedResult = [];
+      result.forEach((talker) => {
+        const normalizedTalker = {
+          id: talker.id,
+          name: talker.name,
+          age: talker.age,
+          talk: {
+            rate: talker.talk_rate,
+            watchedAt: talker.talk_watched_at,
+          },
+        };
+        normalizedResult.push(normalizedTalker);
+      });
+      res.status(200).json(normalizedResult);
+    } catch (err) { res.status(500).json({ message: err.sqlMessage }); }
+});
 
 route.get('/search',
   isAuthorizationExist,
