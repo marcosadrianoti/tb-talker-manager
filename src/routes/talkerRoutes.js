@@ -3,6 +3,7 @@ const utilsFile = require('../utils/readWriteTalkerFile');
 const { isAuthorizationExist, isTokenValid } = require('../middleware/tokenValidation');
 const { hasIdOnFile } = require('../middleware/hasIdOnFile');
 const { seachByTerm, seachByRate, seachByDate } = require('../middleware/seach');
+const { rateByIdValidation } = require('../middleware/rateByIdValidation');
 const {
   isNameValid,
   isAgeValid,
@@ -76,6 +77,17 @@ route.put('/:id',
       ...talkerBody,
     };
     return res.status(200).json(talkerEdited);
+});
+
+route.patch('/rate/:id',
+  isAuthorizationExist,
+  isTokenValid,
+  rateByIdValidation,
+  async (req, res) => {
+    const id = Number(req.params.id);
+    const rateValue = req.body.rate;
+    await utilsFile.EditRateById(id, rateValue);
+    return res.status(204).json();
 });
 
 route.delete('/:id',

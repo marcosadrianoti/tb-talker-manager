@@ -1,8 +1,10 @@
 const fs = require('fs/promises');
 
+const TALKER_FILE = 'src/talker.json';
+
 const readTalkerFile = async () => {
   try {
-    const arrTalker = await fs.readFile('src/talker.json', 'utf8');
+    const arrTalker = await fs.readFile(TALKER_FILE, 'utf8');
 
     return JSON.parse(arrTalker);
   } catch (error) {
@@ -50,7 +52,7 @@ const insertNewTalker = async (talker) => {
     const arrTalkers = await readTalkerFile();
     arrTalkers.push(talker);
 
-    return await fs.writeFile('src/talker.json', JSON.stringify(arrTalkers));
+    return await fs.writeFile(TALKER_FILE, JSON.stringify(arrTalkers));
   } catch (error) {
     return null;
   }
@@ -64,13 +66,30 @@ const saveEditedTalker = async (id, talker) => {
     ...talker,
   };
   talkersFilter.push(talkerEdited);
-  await fs.writeFile('src/talker.json', JSON.stringify(talkersFilter));
+  await fs.writeFile(TALKER_FILE, JSON.stringify(talkersFilter));
+};
+
+const EditRateById = async (id, rate) => {
+  const talkers = await readTalkerFile();
+  const originalTalker = talkers.find((talkerPerson) => talkerPerson.id === id);
+  const talkersWithinOriginalTalker = talkers.filter((talkerPerson) => talkerPerson.id !== id);
+
+  const EditedTalker = {
+    ...originalTalker,
+    talk: {
+      ...originalTalker.talk,
+      rate,
+    },
+  };
+
+  talkersWithinOriginalTalker.push(EditedTalker);
+  await fs.writeFile(TALKER_FILE, JSON.stringify(talkersWithinOriginalTalker));
 };
 
 const deleteTalker = async (id) => {
   const talkers = await readTalkerFile();
   const talkersFilter = talkers.filter((talkerPerson) => talkerPerson.id !== id);
-  await fs.writeFile('src/talker.json', JSON.stringify(talkersFilter));
+  await fs.writeFile(TALKER_FILE, JSON.stringify(talkersFilter));
 };
 
 module.exports = {
@@ -83,4 +102,5 @@ module.exports = {
   getTalkerByTerm,
   getTalkerByRate,
   getTalkerByDate,
+  EditRateById,
 };
