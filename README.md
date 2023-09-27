@@ -1,5 +1,5 @@
 # Projeto Talker Manager! :man_teacher:
-Projeto desenvolvido em grupo durante o curso de Desenvolvimento Web na Trybe. Divulgado aqui como portfólio de aprendizado.
+Projeto desenvolvido por mim durante o curso de Desenvolvimento Web na Trybe. Divulgado aqui como portfólio de aprendizado.
 
 <details>
 <summary><strong>Objetivos do projeto:</strong></summary>
