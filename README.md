@@ -12,19 +12,19 @@ Projeto desenvolvido em grupo durante o curso de Desenvolvimento Web na Trybe. D
 <details>
 <summary><strong> Requisitos do projeto:</strong></summary>
 
-  * Crie o endpoint GET /talker
-  * Crie o endpoint GET /talker/:id
-  * Crie o endpoint POST /login
-  * Adicione as validações para o endpoint /login
-  * Crie o endpoint POST /talker
-  * Crie o endpoint PUT /talker/:id
-  * Crie o endpoint DELETE /talker/:id
-  * Crie o endpoint GET `/talker/search` e o parâmetro de consulta `q=searchTerm`
+  * Criar o endpoint GET /talker.
+  * Criar o endpoint GET /talker/:id.
+  * Criar o endpoint POST /login.
+  * Adicionar as validações para o endpoint /login.
+  * Criar o endpoint POST /talker.
+  * Criar o endpoint PUT /talker/:id.
+  * Criar o endpoint DELETE /talker/:id.
+  * Criar o endpoint GET `/talker/search` e o parâmetro de consulta `q=searchTerm`.
   * Requisitos Bônus:
-    * Crie no endpoint GET `/talker/search` o parâmetro de consulta `rate=rateNumber`
-    * Crie no endpoint GET `/talker/search` o parâmetro de consulta `date=watchedDate`
-    * Crie o endpoint PATCH `/talker/rate/:id`
-    * Crie o endpoint GET `/talker/db`
+    * Criar no endpoint GET `/talker/search` o parâmetro de consulta `rate=rateNumber`.
+    * Criar no endpoint GET `/talker/search` o parâmetro de consulta `date=watchedDate`.
+    * Criar o endpoint PATCH `/talker/rate/:id`.
+    * Criar o endpoint GET `/talker/db`.
 </details>
   
 ## Rodando o projeto localmente
