@@ -1,4 +1,4 @@
-# Projeto App de Receitas! :cake:
+# Projeto Talker Manager! :man_teacher:
 Projeto desenvolvido em grupo durante o curso de Desenvolvimento Web na Trybe. Divulgado aqui como portfólio de aprendizado.
 
 <details>
