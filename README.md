@@ -39,13 +39,13 @@ cd meu-diretorio
 Clone o projeto com o comando `git clone`:
 
 ```bash
-git clone git@github.com:marcosadrianoti/tb-recipes-app.git
+git clone git@github.com:marcosadrianoti/tb-talker-manager.git
 ```
 
 Acesse o diretório do projeto com o comando `cd`:
 
 ```bash
-cd tb-recipes-app
+cd tb-talker-manager
 ```
 
 Instale as dependências executando:
